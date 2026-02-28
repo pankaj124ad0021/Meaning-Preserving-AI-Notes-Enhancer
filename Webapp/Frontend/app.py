@@ -168,10 +168,17 @@ with right_col:
             except Exception as E:
                 res = {"enhanced_text": "Unable to enhance"}
                 print(E)
-        orignal_words=user_input.split()
-        enhanced_words=res['enhanced_text'].split()
-        res_str=[f'<span style="color: green;">{i}</span>' if i not in orignal_words else f'<span style="color: red;">{i}</span>' for i in enhanced_words]
-        res_str=" ".join(res_str)
+        orignal_words = user_input.split()
+        enhanced_words = res["enhanced_text"].split()
+        res_str = [
+            (
+                f'<span style="color: green;">{i}</span>'
+                if i not in orignal_words
+                else f'<span style="color: red;">{i}</span>'
+            )
+            for i in enhanced_words
+        ]
+        res_str = " ".join(res_str)
         output_placeholder.markdown(
             f'<div class="output-box">{res_str}</div>',
             unsafe_allow_html=True,

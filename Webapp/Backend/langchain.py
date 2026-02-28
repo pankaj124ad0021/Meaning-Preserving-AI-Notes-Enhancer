@@ -16,7 +16,7 @@ load_dotenv()
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-4-Scout-17B-16E-Instruct", task="text-generation"
 )
-enhancer_model = ChatHuggingFace(llm=llm,temperature=0)
+enhancer_model = ChatHuggingFace(llm=llm, temperature=0)
 embedding_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
