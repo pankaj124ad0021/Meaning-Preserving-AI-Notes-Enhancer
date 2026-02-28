@@ -1,14 +1,15 @@
 import streamlit as st
 import requests
 
+url = "http://localhost:8000/enhance"
 
-url="http://localhost:8000/enhance"
+
 def enhance_text(original_text):
-    res=requests.get(url=url,params={"original_text":original_text})
+    res = requests.get(url=url, params={"original_text": original_text})
     return res.json()
 
 
-st.set_page_config(page_title="Meaning-Preserving-AI-Notes-Enhancer",layout="wide")
+st.set_page_config(page_title="Meaning-Preserving-AI-Notes-Enhancer", layout="wide")
 st.markdown(
     "<h1 style='text-align: center;'>Meaning Preserving AI-Notes Enhancer</h1>",
     unsafe_allow_html=True,
@@ -154,22 +155,28 @@ with mid_col:
     st.markdown("<div style='height:148px'></div>", unsafe_allow_html=True)
     enhance_clicked = st.button("✦ Enhance")
 
-response=None
+response = None
 with right_col:
     st.markdown('<p class="col-label">Output</p>', unsafe_allow_html=True)
 
     output_placeholder = st.empty()
-    if enhance_clicked and len(user_input.strip())!=0:
+    if enhance_clicked and len(user_input.strip()) != 0:
         with st.spinner("Enhancing…"):
-                try:
-                    response=enhance_text(user_input)
-                except Exception as E:
-                    response={"enhanced_text":"Unable to enhance"}
-                    print(E)
+            try:
+                response = enhance_text(user_input)
+            except Exception as E:
+                response = {"enhanced_text": "Unable to enhance"}
+                print(E)
         output_placeholder.markdown(
             f'<div class="output-box">{response['enhanced_text']}</div>',
             unsafe_allow_html=True,
         )
-if enhance_clicked and len(user_input.strip())!=0:
-    st.markdown('<br><h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>', unsafe_allow_html=True)
-    st.markdown(f'<p style="text-align:center; font-size:3rem; font-family:serif; font-style:italic; color:#f5c842; margin:0;">{response["similarity_score"]*100:.2f}%</p>', unsafe_allow_html=True)
+if enhance_clicked and len(user_input.strip()) != 0:
+    st.markdown(
+        '<br><h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        f'<p style="text-align:center; font-size:3rem; font-family:serif; font-style:italic; color:#f5c842; margin:0;">{response["similarity_score"]*100:.2f}%</p>',
+        unsafe_allow_html=True,
+    )
