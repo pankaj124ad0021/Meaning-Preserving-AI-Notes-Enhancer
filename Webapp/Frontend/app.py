@@ -1,13 +1,20 @@
 import streamlit as st
 import requests
 
-url = "http://localhost:8000/enhance"
+url = "http://13.63.94.119:8000/enhance"
 
 
 def enhance_text(original_text):
     res = requests.get(url=url, params={"original_text": original_text})
     return res.json()
 
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 1rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="Meaning-Preserving-AI-Notes-Enhancer", layout="wide")
 st.markdown(
@@ -172,9 +179,9 @@ with right_col:
         enhanced_words = res["enhanced_text"].split()
         res_str = [
             (
-                f'<span style="color: green;">{i}</span>'
+                f'<span style="color: #87CEEB;">{i}</span>'
                 if i not in orignal_words
-                else f'<span style="color: red;">{i}</span>'
+                else f'<span style="color: orange;">{i}</span>'
             )
             for i in enhanced_words
         ]
@@ -186,7 +193,7 @@ with right_col:
 if enhance_clicked and len(user_input.strip()) != 0:
     try:
         st.markdown(
-            '<br><h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>',
+            '<h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>',
             unsafe_allow_html=True,
         )
         st.markdown(

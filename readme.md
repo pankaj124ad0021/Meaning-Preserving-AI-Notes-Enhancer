@@ -1,64 +1,109 @@
-# Meaning Preserving AI-Notes Enhancer By Team FIXIT
+# Meaning Preserving AI-Notes Enhancer
 
-Problem Statement No 3
+> **Team FIXIT** — Problem Statement No. 3
+## Problem Statement
+<img src="./images/problem_statement.png">
 
-### We have created an AI writing assistant that- 
-• Accepts raw, unpolished text as input.
-• Improves grammar, spelling, clarity, and sentence structure.
-• Preserves the original meaning, without exception.
-• Provides a quantitative similarity score to validate meaning preservation.
+---
 
-### Model Used
-Llama-4 - for enhancing text
-Sentence-transformers/all-MiniLM - for embedding generation
+## Agent Name
+**Meaning Preserving AI-Notes Enhancer**
+An AI writing assistant that improves grammar, spelling, clarity, and sentence structure while preserving the original meaning — validated by a quantitative similarity score.
 
-## How It Works
-- User enter the raw text in our webapp
-- Webapp send raw text to backend
-- In backend we send raw text to LLama-4 with system instruction and few shot prompting to generate the enhanced text
-- Generate embeddings of enhanced text and original text parallely 
-- Calculate similarity score using cosine similarity between enhanced text and original text
-- Backend return the Enhanced text and similarity score
-- Frontend display the enchanced text and similarity score to user
+---
 
-## Tech Used - 
-LangChain - for models
-FastApi - for api
-Streamlit - for Frontend
-Docker - for contanirasation
+## Agent Address
+**Repository:** [https://github.com/pankaj-2708/Neural-Style-Transfer](https://github.com/pankaj-2708/Neural-Style-Transfer)
+**Frontend (AWS) :** http://13.63.94.119:8501/
 
+---
+
+## Framework Used
+
+| Component | Technology |
+|-----------|-----------|
+| LLM Orchestration | LangChain |
+| Language Model | Llama-4 (text enhancement) |
+| Embedding Model | sentence-transformers/all-MiniLM (similarity scoring) |
+| Backend API | FastAPI |
+| Frontend | Streamlit |
+| Containerization | Docker |
+| AWS | hosting |
+
+---
+
+## Architecture Explanation
+
+The system follows a client-server architecture with the following flow:
+
+1. **User Input** — The user enters raw, unpolished text into the Streamlit web app.
+2. **Backend Processing** — The raw text is sent to the FastAPI backend, which forwards it to **Llama-4** using a system instruction and few-shot prompting to produce enhanced text.
+3. **Parallel Embedding Generation** — Embeddings for both the original and enhanced text are generated in parallel using `sentence-transformers/all-MiniLM`.
+4. **Similarity Scoring** — Cosine similarity is computed between the two embeddings to produce a meaning-preservation score.
+5. **Response** — The backend returns the enhanced text and similarity score to the frontend.
+6. **Visual Display** — The frontend highlights newly added words in **sky-blue** and retained original words in **orange**, alongside the similarity score.
+
+
+---
+## Architecture Diagram
+<img src="./images/arch.png"></img>
+
+---
+
+## Demo Screeen-Shot
+
+<img src="./images/demo.png"></img>
+
+---
 
 ## Setup Instructions
-Step 1 - Clone the Repo
-```
+
+### Prerequisites
+- Python 3.8+
+- Git
+
+### Step 1 — Clone the Repository
+```bash
 git clone https://github.com/pankaj-2708/Neural-Style-Transfer.git
 ```
 
-Step 2 - Create and activate a virtual enviorment
-```
+### Step 2 — Create and Activate a Virtual Environment
+```bash
 python -m venv gdg
-gdg\Scripts\Activate
+gdg\Scripts\Activate       
 ```
 
-Step 3 - Install Backend Dependencies
-```
+### Step 3 — Install Backend Dependencies
+```bash
 cd ./Webapp/Backend
 pip install -r requirements.txt
 ```
 
-Step - 4 Start the Backend 
-```
-python run main.py
+### Step 4 — Start the Backend
+```bash
+python main.py
 ```
 
-Step 5 - Install Frontend Dependencies
-```
+### Step 5 — Install Frontend Dependencies
+```bash
 cd ../Frontend
 pip install -r requirements.txt
 ```
 
-Step 6 - Start Frontend
-```
+### Step 6 — Start the Frontend
+```bash
 streamlit run app.py
 ```
-App is running you can acces it at http://localhost:8501/
+
+The app will be accessible at **http://localhost:8501/**
+
+---
+
+## Additional Resources
+
+- [LangChain Documentation](https://docs.langchain.com/)
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Streamlit Documentation](https://docs.streamlit.io/)
+- [sentence-transformers Documentation](https://www.sbert.net/)
+- [Meta Llama-4 on Hugging Face](https://huggingface.co/meta-llama)
+- [Docker Documentation](https://docs.docker.com/)
