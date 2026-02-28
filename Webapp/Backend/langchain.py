@@ -16,7 +16,7 @@ load_dotenv()
 llm = HuggingFaceEndpoint(
     repo_id="meta-llama/Llama-4-Scout-17B-16E-Instruct", task="text-generation"
 )
-enhancer_model = ChatHuggingFace(llm=llm)
+enhancer_model = ChatHuggingFace(llm=llm,temperature=0)
 embedding_model = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
@@ -40,15 +40,27 @@ You MUST NOT:
 - Change the factual intent of any sentence .
 - Expand content beyond style and grammatical improvement.
 - Add preambles like "Here is the improved text" — return ONLY the enhanced text.
-- Ask any further questions to user just enhance the text and return it.
+- Ask or return anything other than the enhanced input.
 - Produce output that a reasonable reader would interpret differently from the original.""",
         ),
         (
             "human",
             """Below is a example of how to enhance text:
          
-Input: I am doing project on AI which is very good and it help many people in future.
-Output: I am working on an AI project that has strong potential to help many people in the future.
+Input:  I goes to market yesterday and buyed many things.
+Output: I went to the market yesterday and bought many things.
+
+Input:  The result of experiment was not good because we not have enough data.
+Output: The experimental results were poor because we did not have enough data.
+
+Input:  I want to inform you that the meeting is postponed to tomorrow because of some reason.
+Output: I would like to inform you that the meeting has been postponed to tomorrow due to unforeseen circumstances.
+
+Input:  The model it was trained on big data and give very accurate result.
+Output: The model was trained on a large dataset and produces highly accurate results.
+
+Input:  He failed.
+Output: He failed.
 
 Now enchance the following text
 
