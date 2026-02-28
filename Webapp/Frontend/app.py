@@ -83,7 +83,8 @@ st.markdown(
         border: 1px solid #2e2e2e;
         border-radius: 4px;
         padding: 14px 16px;
-        min-height: 280px;
+        height: 280px;
+        overflow: auto;
         font-family: 'DM Mono', monospace;
         font-size: 0.9rem;
         color: #e8e0d0;
@@ -163,20 +164,27 @@ with right_col:
     if enhance_clicked and len(user_input.strip()) != 0:
         with st.spinner("Enhancing…"):
             try:
-                response = enhance_text(user_input)
+                res = enhance_text(user_input)
             except Exception as E:
-                response = {"enhanced_text": "Unable to enhance"}
+                res = {"enhanced_text": "Unable to enhance"}
                 print(E)
+        orignal_words=user_input.split()
+        enhanced_words=res['enhanced_text'].split()
+        res_str=[f'<span style="color: green;">{i}</span>' if i not in orignal_words else f'<span style="color: red;">{i}</span>' for i in enhanced_words]
+        res_str=" ".join(res_str)
         output_placeholder.markdown(
-            f'<div class="output-box">{response['enhanced_text']}</div>',
+            f'<div class="output-box">{res_str}</div>',
             unsafe_allow_html=True,
         )
 if enhance_clicked and len(user_input.strip()) != 0:
-    st.markdown(
-        '<br><h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>',
-        unsafe_allow_html=True,
-    )
-    st.markdown(
-        f'<p style="text-align:center; font-size:3rem; font-family:serif; font-style:italic; color:#f5c842; margin:0;">{response["similarity_score"]*100:.2f}%</p>',
-        unsafe_allow_html=True,
-    )
+    try:
+        st.markdown(
+            '<br><h3 style="text-align:center; letter-spacing:0.2em; text-transform:uppercase;">Semantic similarity score </h3>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f'<p style="text-align:center; font-size:3rem; font-family:serif; font-style:italic; color:#f5c842; margin:0;">{res["similarity_score"]*100:.2f}%</p>',
+            unsafe_allow_html=True,
+        )
+    except Exception as E:
+        print(E)
